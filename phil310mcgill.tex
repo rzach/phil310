@@ -1,0 +1,100 @@
+% phil310mcgill.tex
+% master file to produce tet for McGill's Phil 310
+\documentclass[letterpaper]{memoir}
+
+% we're compiling from main directory
+\newcommand{\olpath}{../../}
+
+\usepackage{mathpazo}
+\usepackage[scaled=0.95]{helvet}
+\usepackage{courier}
+\linespread{1.05} % Palatino looks better with this
+
+\usepackage[pdftex,breaklinks,bookmarks,bookmarksopen,bookmarksopenlevel=1,colorlinks,linkcolor=blue]{hyperref}
+
+\input{\olpath/sty/open-logic.sty}
+
+% Defer problems
+
+\makeatletter
+
+\RequirePackage{etoolbox}
+\RequirePackage{answers}
+
+\def\solutionextension{prb}
+
+\csundef{prob}
+\csundef{endprob}
+
+\Newassociation{prob}{probdeferred}{phil310}
+
+% Redefine probdeferred as a theorem environment
+\csundef{probdeferred}
+\csundef{endprobdeferred}
+\csundef{c@probdeferred}
+
+\declaretheorem[
+  style=definition,
+  name=Problem]{probdeferred}
+% answers writes current label as argument
+\apptocmd{\probdeferred}{\@gobble}{}{}
+
+  \Opensolutionfile{phil310}
+
+% at the end of a \chapter command, open the solution file 
+\renewcommand\memendofchapterhook{%
+  \Writetofile{phil310}{\protect\section*{Problems to Chapter~\thechapter}}}
+
+\makeatother
+
+
+\begin{document}
+
+
+\begin{titlingpage}
+\begin{center}\HUGE\bfseries
+INTERMEDIATE LOGIC
+\vskip 5ex
+\normalfont
+\LARGE 
+Richard Zach
+\vskip 5ex\large
+Readings for Philosophy 310\\
+Winter Term 2015\\
+McGill University
+\vfill\large
+
+This text is based on the
+
+\href{http://openlogicproject.org/}{Open Logic Project}
+
+Version of \today
+\end{center}
+
+\end{titlingpage}
+
+\frontmatter
+\pagestyle{ruled}
+
+\tableofcontents*
+
+\input{preface}
+
+\mainmatter
+
+\olimport*[sets-functions-relations]{sets-functions-relations}
+
+%\olimport*[first-order-logic]{first-order-logic}
+
+%\olimport*[computability/recursive-functions]{recursive-functions}
+
+%\olimport*[incompleteness]{incompleteness}
+
+\Closesolutionfile{phil310}
+\backmatter
+\chapter{Problems}
+
+  \Readsolutionfile{phil310}
+
+\end{document}
+
