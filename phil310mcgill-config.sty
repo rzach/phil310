@@ -1,0 +1,51 @@
+% % Custom OLP configurations for McGill's Phil 310
+% % Richard Zach
+
+% Logical symbols
+% ---------------
+
+% The following commands are used in the OLP texts for logical
+% symbols. Their definitions can be customized to produce different
+% output.
+
+% ### Truth Values
+%
+% - `\True` defaults to $1$ and `\False` to $0$.
+
+\DeclareDocumentMacro \True {\textrm{T}}
+\DeclareDocumentMacro \False {\textrm{F}}
+
+% Tokens
+% ======
+
+% Tags
+% ====
+
+% - Primitives: tags for (sets of) operators which are treated as
+%   primitives.
+
+\tagtrue{prvNot,prvOr,prvAnd,prvIf,prvFalse,prvEx,prvAll}
+\tagfalse{prvIff,prvTrue}
+
+
+% - Defined operators: tags for operators which are defined, not
+%  primitive.
+
+\tagfalse{defNot,defOr,defAnd,defIf,defIff,defTrue,defFalse,defEx,defAll}
+\tagtrue{defIff,defTrue}
+
+% - Cases in proofs: tags for (sets of) operators for which cases are
+%   proved; if the corresponding tag is off then the case is added as
+%   a problem. 
+
+\tagfalse{probNot,probOr,probIf,probIff,probAll}
+\tagtrue{probAnd,probIff,probEx}
+
+% - Limit clause in inductive definitions: do you want inductive
+% definitions to have a "Nothing else is a ..." clause?
+
+\tagtrue{limitClause}
+
+% tagTrue - a true tag respectively.
+
+\tagtrue{tagTrue}
