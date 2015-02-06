@@ -25,76 +25,58 @@
 
 \csundef{prob}
 \csundef{endprob}
+\csundef{probtag}
+\csundef{endprobtag}
 
-\Newassociation{prob}{probdeferred}{phil310}
+\Newassociation{prob}{probdeferred}{\jobname}
+\Newassociation{probtag}{probdeferredtag}{\jobname}
 
 % Redefine probdeferred as a theorem environment
-\csundef{probdeferred}
-\csundef{endprobdeferred}
-\csundef{c@probdeferred}
+%\csundef{probdeferred}
+%\csundef{endprobdeferred}
+%\csundef{c@probdeferred}
+
+\renewenvironment{probdeferred}[1]{\begin{probd}}{\end{probd}}
+%\renewenvironment{probdeferredtag}[2]{\def\probtags#2\iftag\probtags{\begin{probd}}{\supressenv{probdeferredtag}}}{\iftag\probtags{\end{probd}}{}}
+\renewenvironment{probdeferredtag}[2]{\begin{probd}}{\end{probd}}
 
 \declaretheorem[
   style=definition,
-  name=Problem]{probdeferred}
+  name=Problem]{probd}
 % answers writes current label as argument
-\apptocmd{\probdeferred}{\@gobble}{}{}
+%\apptocmd{\probdeferred}{\@gobble}{}{}
 
-  \Opensolutionfile{phil310}
+  \Opensolutionfile{\jobname}
 
 % at the end of a \chapter command, open the solution file 
 \renewcommand\memendofchapterhook{%
-  \Writetofile{phil310}{\protect\section*{Problems to Chapter~\thechapter}}}
+  \Writetofile{\jobname}{\protect\section*{Problems for Chapter~\thechapter}}}
 
 \makeatother
 
+%\includeonly{frontmatter,part1}
+%\includeonly{part2}
+\includeonly{part3}
 
 \begin{document}
 
-
-\begin{titlingpage}
-\begin{center}\HUGE\bfseries
-INTERMEDIATE LOGIC
-\vskip 5ex
-\normalfont
-\LARGE 
-Richard Zach
-\vskip 5ex\large
-Readings for Philosophy 310\\
-Winter Term 2015\\
-McGill University
-\vfill\large
-
-This text is based on the
-
-\href{http://openlogicproject.org/}{Open Logic Project}
-
-Version of \today
-\end{center}
-
-\end{titlingpage}
-
-\frontmatter
-\pagestyle{ruled}
-
-\tableofcontents*
-
-\input{preface}
+\include{frontmatter}
 
 \mainmatter
 
-\olimport*[sets-functions-relations]{sets-functions-relations}
+\include{part1}
 
-%\olimport*[first-order-logic]{first-order-logic}
+\include{part2}
 
-%\olimport*[computability/recursive-functions]{recursive-functions}
+\include{part3}
 
-%\olimport*[incompleteness]{incompleteness}
+\Closesolutionfile{\jobname}
 
-\Closesolutionfile{phil310}
 \backmatter
+
 \chapter{Problems}
 
-  \Readsolutionfile{phil310}
+  \Readsolutionfile{\jobname}
 
 \end{document}
 
